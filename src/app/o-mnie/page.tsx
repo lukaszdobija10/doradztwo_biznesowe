@@ -64,48 +64,55 @@ const galeria = [
 export default function OMnie() {
   return (
     <>
-      <section className="bg-ink py-12 md:py-16">
-        <Image
-          src="/img/o-mnie-hero.jpg"
-          alt="Łukasz Dobija"
-          width={1367}
-          height={2048}
-          priority
-          className="mx-auto h-auto w-auto max-h-[75vh] max-w-full rounded-2xl object-contain px-6"
-        />
-      </section>
+      <section className="bg-white py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1300px] items-start gap-12 px-6 md:grid-cols-2 md:gap-20">
+          <Image
+            src="/img/o-mnie-hero.jpg"
+            alt="Łukasz Dobija"
+            width={1367}
+            height={2048}
+            priority
+            className="w-full md:sticky md:top-[96px]"
+          />
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="mx-auto max-w-[1000px] px-6">
-          <h1 className="text-[32px] font-bold md:text-[48px]">Doświadczenie</h1>
+          <div>
+            <h1 className="text-[32px] font-bold md:text-[48px]">Doświadczenie</h1>
 
-          <ul className="mt-10 divide-y divide-black/10">
-            {doswiadczenie.map((p) => (
-              <li key={`${p.okres}-${p.firma}`} className="grid gap-2 py-6 md:grid-cols-[220px_1fr]">
-                <span className="text-base text-muted">{p.okres}</span>
-                <span>
-                  <span className="block text-lg font-bold">{p.stanowisko}</span>
-                  <span className="text-base text-muted">
-                    {p.firma}, {p.www}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
+            <ul className="mt-10 space-y-8">
+              {doswiadczenie.map((p) => (
+                <li key={`${p.okres}-${p.firma}`}>
+                  <p className="text-xl leading-snug md:text-2xl">
+                    {p.okres}, {p.stanowisko}
+                  </p>
+                  <p className="mt-1 text-lg">
+                    {p.firma},{" "}
+                    <a
+                      href={`https://${p.www}`}
+                      className="underline underline-offset-2 hover:text-lime-ink"
+                    >
+                      {p.www}
+                    </a>
+                  </p>
+                </li>
+              ))}
+            </ul>
 
-          <h2 className="mt-20 text-[28px] font-bold md:text-[40px]">Edukacja</h2>
-          <ul className="mt-8 space-y-4 text-lg">
-            {edukacja.map((e) => (
-              <li key={e}>{e}</li>
-            ))}
-          </ul>
+            <h2 className="mt-20 text-[28px] font-bold md:text-[40px]">Edukacja</h2>
+            <ul className="mt-10 space-y-6 text-xl leading-snug md:text-2xl">
+              {edukacja.map((e) => (
+                <li key={e}>{e}</li>
+              ))}
+            </ul>
 
-          <h2 className="mt-20 text-[28px] font-bold md:text-[40px]">Szkolenia i kursy</h2>
-          <ul className="mt-8 space-y-4 text-lg">
-            {szkolenia.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ul>
+            <h2 className="mt-20 text-[28px] font-bold md:text-[40px]">
+              Szkolenia i kursy
+            </h2>
+            <ul className="mt-10 space-y-6 text-xl leading-snug md:text-2xl">
+              {szkolenia.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
