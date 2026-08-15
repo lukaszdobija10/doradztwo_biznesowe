@@ -53,19 +53,25 @@ const szkolenia = [
   "Sell Wise Szymon Negacz — Machina B2B, Lead Generation, Prospecting i sprzedaż, Strategia i procesy, Zarządzanie zespołem",
 ];
 
-const galeria = ["/img/g1.jpg", "/img/g2.jpg", "/img/g3.jpg", "/img/g4.jpg", "/img/g5.jpg"];
+const galeria = [
+  { src: "/img/g1.jpg", w: 1600, h: 1200 },
+  { src: "/img/g2.jpg", w: 1536, h: 2048 },
+  { src: "/img/g3.jpg", w: 1600, h: 1200 },
+  { src: "/img/g4.jpg", w: 1600, h: 1108 },
+  { src: "/img/g5.jpg", w: 1600, h: 2133 },
+];
 
 export default function OMnie() {
   return (
     <>
-      <section className="bg-ink">
+      <section className="bg-ink py-12 md:py-16">
         <Image
           src="/img/o-mnie-hero.jpg"
           alt="Łukasz Dobija"
-          width={1600}
-          height={900}
+          width={1367}
+          height={2048}
           priority
-          className="h-[45vh] w-full object-cover md:h-[70vh]"
+          className="mx-auto h-auto w-auto max-h-[75vh] max-w-full rounded-2xl object-contain px-6"
         />
       </section>
 
@@ -104,15 +110,15 @@ export default function OMnie() {
       </section>
 
       <section className="bg-white pb-24">
-        <div className="mx-auto grid max-w-[1200px] gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">
-          {galeria.map((src) => (
+        <div className="mx-auto max-w-[1200px] columns-1 gap-4 px-6 sm:columns-2 lg:columns-3">
+          {galeria.map((foto) => (
             <Image
-              key={src}
-              src={src}
+              key={foto.src}
+              src={foto.src}
               alt=""
-              width={800}
-              height={800}
-              className="aspect-square w-full rounded-2xl object-cover"
+              width={foto.w}
+              height={foto.h}
+              className="mb-4 w-full rounded-2xl"
             />
           ))}
         </div>
