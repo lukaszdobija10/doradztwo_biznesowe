@@ -124,18 +124,22 @@ export default function Home() {
       </section>
 
       {/* Kontakt */}
-      <section className="relative bg-ink py-20 md:py-28">
-        <Image
-          src="/img/kontakt-form.jpg"
-          alt=""
-          fill
-          className="object-cover opacity-25"
-        />
-        <div className="relative mx-auto grid max-w-[1000px] gap-12 px-6 md:grid-cols-2">
+      <section className="bg-ink py-20 md:py-28">
+        <div className="mx-auto max-w-[1100px] px-6">
           <h2 className="text-[32px] font-bold leading-tight text-white md:text-[40px]">
             Poznajmy się
           </h2>
-          <ContactForm />
+
+          <div className="mt-12 grid items-start gap-12 md:grid-cols-2">
+            <Image
+              src="/img/kontakt-form.jpg"
+              alt="Łukasz Dobija"
+              width={1600}
+              height={1600}
+              className="h-[380px] w-full rounded-2xl object-cover object-top md:h-[520px]"
+            />
+            <ContactForm />
+          </div>
         </div>
       </section>
     </>
