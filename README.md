@@ -61,6 +61,26 @@ npm run db:studio    # podgląd danych
 npm run db:deploy    # migracje na produkcji
 ```
 
+## Wdrożenie (VPS crm.lddb.pl — 186.240.144.109)
+
+Strona siedzi obok TIP4ME (:3000) i CRM (:3100), tym samym wzorem co TIP4ME:
+
+- kod: `/opt/lukaszdobija/app` (użytkownik systemowy `strona`), konfiguracja w `app/.env`
+- usługa: `lukaszdobija.service`, słucha tylko na `127.0.0.1:3101`
+- baza: systemowy PostgreSQL, baza i rola `panel`
+- nginx: `/etc/nginx/sites-available/lukaszdobija-lukaszdb.online.conf` dla `lukaszdb.online` i `www`
+
+Aktualizacja po wypchnięciu zmian na `main`:
+
+```bash
+ssh root@crm.lddb.pl 'cd /opt/lukaszdobija/app \
+  && sudo -u strona git pull --ff-only \
+  && sudo -u strona npm ci \
+  && sudo -u strona npm run build \
+  && sudo -u strona npx prisma migrate deploy \
+  && systemctl restart lukaszdobija.service'
+```
+
 ## Tokeny designu (`src/app/globals.css`)
 
 | token | wartość |
@@ -77,4 +97,3 @@ Font: Roboto (`next/font/google`), nagłówki 48/40 px bold, tekst 18 px.
 
 - Formularze kontaktowe otwierają klienta poczty (`mailto:`) — do podmiany na backend, gdy będzie wybrany dostawca.
 - Sklep jest wyłącznie prezentacyjny: przyciski „Dodaj do koszyka" / „Zarezerwuj" prowadzą do `/kontakt`. Koszyk i płatności czekają na decyzję o bramce.
-- Panel nie jest jeszcze nigdzie wdrożony — strona żyje na Zyro, a to repozytorium chodzi lokalnie.
