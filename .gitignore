@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Wzór konfiguracji ma być w repozytorium — to jedyny plik .env, który wolno commitować.
+!.env.example
+
+# Klient Prismy jest generowany z prisma/schema.prisma — nie trzymamy go w repo.
+/src/generated/prisma

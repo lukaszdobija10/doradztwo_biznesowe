@@ -1,0 +1,92 @@
+// Panel właściciela — schemat bazy danych
+//
+// Panel jest prywatną częścią strony: jeden zalogowany człowiek widzi wyłącznie
+// własne notatki, zadania i skróty do aplikacji. Każdy rekord ma dlatego
+// `wlascicielId`, a indeksy zaczynają się od tej kolumny — zapytanie o dane
+// jednej osoby nigdy nie przegląda cudzych wierszy.
+//
+// Dostęp do panelu jest dodatkowo zawężony listą adresów w PANEL_EMAILS
+// (src/lib/auth.config.ts). Konto powstaje dopiero przy pierwszym udanym
+// logowaniu Google, więc w bazie nie ma pustych rekordów „na zapas".
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Uzytkownik {
+  id      String  @id @default(cuid())
+  email   String  @unique
+  imie    String?
+  obrazek String?
+
+  utworzony         DateTime  @default(now())
+  ostatnieLogowanie DateTime?
+
+  notatki   Notatka[]
+  zadania   Zadanie[]
+  aplikacje Aplikacja[]
+}
+
+model Notatka {
+  id    String @id @default(cuid())
+  tytul String
+  tresc String @default("")
+
+  // Przypięte notatki lądują na górze listy i na stronie głównej panelu.
+  przypieta Boolean @default(false)
+
+  utworzona DateTime @default(now())
+  zmieniona DateTime @updatedAt
+
+  wlascicielId String
+  wlasciciel   Uzytkownik @relation(fields: [wlascicielId], references: [id], onDelete: Cascade)
+
+  @@index([wlascicielId, przypieta, zmieniona])
+}
+
+enum Priorytet {
+  NISKI
+  NORMALNY
+  WYSOKI
+}
+
+model Zadanie {
+  id        String    @id @default(cuid())
+  tresc     String
+  priorytet Priorytet @default(NORMALNY)
+
+  // Sam termin bez godziny — zadania w panelu planuje się na dzień, nie na minutę.
+  termin DateTime? @db.Date
+
+  // Data wykonania zamiast flagi: od razu wiadomo nie tylko „czy", ale i „kiedy".
+  zrobioneO DateTime?
+
+  utworzone DateTime @default(now())
+
+  wlascicielId String
+  wlasciciel   Uzytkownik @relation(fields: [wlascicielId], references: [id], onDelete: Cascade)
+
+  @@index([wlascicielId, zrobioneO, termin])
+}
+
+model Aplikacja {
+  id    String  @id @default(cuid())
+  nazwa String
+  opis  String?
+  adres String
+
+  // Emoji zamiast pliku z ikoną — kafelek ma być do dodania w dziesięć sekund,
+  // bez wgrywania grafiki.
+  ikona     String?
+  kolejnosc Int     @default(0)
+
+  wlascicielId String
+  wlasciciel   Uzytkownik @relation(fields: [wlascicielId], references: [id], onDelete: Cascade)
+
+  @@index([wlascicielId, kolejnosc])
+}

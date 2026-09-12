@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -22,16 +20,15 @@ export const metadata: Metadata = {
     "Pomagam właścicielom firm i menedżerom uporządkować proces sprzedaży, kanał e-commerce i sposób pracy zespołu, tak, żeby wynik był powtarzalny.",
 };
 
+// Nagłówek i stopka strony wizytówkowej siedzą w layoucie grupy (strona).
+// Panel ma własną nawigację i nie dziedziczy tamtej — stąd podział na grupy
+// zamiast jednego wspólnego layoutu.
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pl" className={roboto.variable}>
-      <body className="flex min-h-screen flex-col font-sans">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

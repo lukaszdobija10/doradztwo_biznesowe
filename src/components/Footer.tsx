@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { kontakt } from "@/lib/site";
 
 export default function Footer() {
@@ -23,6 +25,16 @@ export default function Footer() {
             </a>
           </p>
           <p>NIP: {kontakt.nip}</p>
+
+          {/* Wejście do prywatnego panelu. Dyskretne, bo dla odwiedzających
+              nie ma żadnej wartości — i tak nikogo poza właścicielem
+              nie wpuści. */}
+          <Link
+            href="/panel"
+            className="mt-8 inline-block text-sm text-white/35 transition-colors hover:text-lime"
+          >
+            Panel
+          </Link>
         </div>
       </div>
     </footer>
