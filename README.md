@@ -28,6 +28,13 @@ Prisma 7 + PostgreSQL · Auth.js v5 (logowanie Google)
 - `prisma/schema.prisma` — model danych
 - `src/lib/site.ts` — dane kontaktowe, nawigacja, produkty, logotypy
 
+## Winter Arc — panel rozwoju osobistego (`winter-arc/`)
+
+Osobna, samodzielna aplikacja PHP + SQLite na 90 dni: dzień, kalendarz,
+przegląd tygodnia, punkty kontrolne, PWA na telefon. Nie jest częścią Next.js —
+na VPS działa jako lokalizacja `/arc/` pod PHP-FPM. Instalacja, wdrożenie
+i logika w [`winter-arc/README.md`](winter-arc/README.md).
+
 ## Logowanie Google — co trzeba zrobić raz
 
 Panel wpuszcza wyłącznie adresy wypisane w `PANEL_EMAILS`. Samo konto Google
